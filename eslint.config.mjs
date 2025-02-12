@@ -10,6 +10,7 @@ export default antfu(
     // ],
     rules: {
       'unused-imports/no-unused-imports': 'warn',
+      'n/prefer-global/process': 'off',
     },
   },
   {
