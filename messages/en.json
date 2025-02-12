@@ -1,0 +1,17 @@
+{
+  "common": {
+    "appName": "App",
+    "switch": "Switch to {name}"
+  },
+  "page": {
+    "home": {
+      "seo": {
+        "title": "Home",
+        "description": "Home page"
+      }
+    }
+  },
+  "dict": {
+    "language": "Language"
+  }
+}
