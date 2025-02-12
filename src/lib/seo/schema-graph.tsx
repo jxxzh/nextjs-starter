@@ -7,6 +7,31 @@ export interface SchemaBreadcrumbItem {
   path: string
 }
 
+export interface SchemaImage {
+  url: string
+  width: number
+  height: number
+  caption?: string
+  alt?: string
+}
+
+export interface SchemaProps {
+  title: string
+  description: string
+  pathname: string
+  locale: string
+  breadcrumbs?: SchemaBreadcrumbItem[]
+  image?: SchemaImage
+  datePublished?: string
+  dateModified?: string
+  keywords?: string[]
+  author?: {
+    name: string
+    url?: string
+  }
+  publisherType?: 'Organization' | 'Person'
+}
+
 async function ComplexSchema({
   title,
   description,
@@ -14,32 +39,35 @@ async function ComplexSchema({
   locale,
   breadcrumbs,
   image,
-}: {
-  title: string
-  description: string
-  pathname: string
-  locale: string
-  breadcrumbs?: SchemaBreadcrumbItem[]
-  image?: {
-    url: string
-    width: number
-    height: number
-    caption?: string
-  }
-}) {
+  dateModified,
+  keywords,
+  author,
+  publisherType = 'Organization',
+}: SchemaProps) {
   const t = await getTranslations()
+  const currentUrl = getLocaleUrl(pathname, locale)
+  const currentDateModified = dateModified || new Date().toISOString()
 
   const graph: any[] = [
     {
       '@type': 'WebPage',
-      '@id': getLocaleUrl(pathname, locale),
-      'url': getLocaleUrl(pathname, locale),
+      '@id': currentUrl,
+      'url': currentUrl,
       'name': title,
       'description': description,
-      'dateModified': new Date().toISOString(),
+      'dateModified': currentDateModified,
       'isPartOf': {
         '@id': getLocaleUrl('/#website', locale),
       },
+      'about': description,
+      'keywords': keywords?.join(', '),
+      'author': author
+        ? {
+            '@type': 'Person',
+            'name': author.name,
+            'url': author.url,
+          }
+        : undefined,
       ...(image && {
         primaryImageOfPage: {
           '@id': getLocaleUrl(`${pathname}#primaryimage`, locale),
@@ -54,6 +82,12 @@ async function ComplexSchema({
         },
       }),
       'inLanguage': locale,
+      'potentialAction': [
+        {
+          '@type': 'ReadAction',
+          'target': [currentUrl],
+        },
+      ],
     },
   ]
 
@@ -66,66 +100,75 @@ async function ComplexSchema({
       'width': image.width,
       'height': image.height,
       'caption': image.caption ?? title,
+      'alternativeText': image.alt ?? title,
       'inLanguage': locale,
+      'representativeOfPage': true,
     })
   }
 
   if (breadcrumbs) {
     graph.push({
       '@type': 'BreadcrumbList',
+      '@id': getLocaleUrl(`${pathname}#breadcrumb`, locale),
       'itemListElement': breadcrumbs.map((item, index) => ({
         '@type': 'ListItem',
         'position': index + 1,
         'name': item.label,
-        ...(item.path && { item: getLocaleUrl(item.path, locale) }),
+        ...(item.path && {
+          item: {
+            '@type': 'WebPage',
+            '@id': getLocaleUrl(item.path, locale),
+            'url': getLocaleUrl(item.path, locale),
+            'name': item.label,
+          },
+        }),
       })),
     })
   }
 
+  // Website Schema
   graph.push({
     '@type': 'WebSite',
     '@id': getLocaleUrl('/#website', locale),
     'url': getLocaleUrl('/', locale),
-    'name': t(`route.home.title`),
-    'description': t(`route.home.description`),
+    'name': t(`page.home.seo.title`),
+    'description': t(`page.home.seo.description`),
     'publisher': {
-      '@id': getLocaleUrl('/#organization', locale),
+      '@id': getLocaleUrl(`/#${publisherType.toLowerCase()}`, locale),
     },
+    'inLanguage': locale,
     'potentialAction': [
       {
         '@type': 'SearchAction',
         'target': {
           '@type': 'EntryPoint',
-          'urlTemplate': `${getLocaleUrl('/', locale)}?s={search_term_string}`,
+          'urlTemplate': `${getLocaleUrl('/', locale)}search?q={search_term_string}`,
         },
-        'query-input': {
-          '@type': 'PropertyValueSpecification',
-          'valueRequired': true,
-          'valueName': 'search_term_string',
-        },
+        'query-input': 'required name=search_term_string',
       },
     ],
-    'inLanguage': 'en-US',
   })
 
-  graph.push({
-    '@type': 'Organization',
-    '@id': getLocaleUrl('/#organization', locale),
+  // Publisher Schema (Person or Organization)
+  const publisherSchema = {
+    '@type': publisherType,
+    '@id': getLocaleUrl(`/#${publisherType.toLowerCase()}`, locale),
     'name': appConfig.name,
     'url': getLocaleUrl('/', locale),
-  })
+  }
+  graph.push(publisherSchema)
 
   return (
-    <>
-      {/* eslint-disable-next-line react-dom/no-dangerously-set-innerhtml */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify({
+    <script
+      type="application/ld+json"
+      // eslint-disable-next-line react-dom/no-dangerously-set-innerhtml
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
           '@context': 'https://schema.org',
           '@graph': graph,
-        }) }}
-      />
-    </>
+        }, null, process.env.NODE_ENV === 'development' ? 2 : 0),
+      }}
+    />
   )
 }
 
