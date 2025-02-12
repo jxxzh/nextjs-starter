@@ -1,17 +1,15 @@
 import antfu from '@antfu/eslint-config'
 import nextPlugin from '@next/eslint-plugin-next'
+import pluginQuery from '@tanstack/eslint-plugin-query'
 
 export default antfu(
   {
     react: true,
-    // extends: [
-    //   'next/core-web-vitals',
-    //   'next/typescript',
-    // ],
     rules: {
       'unused-imports/no-unused-imports': 'warn',
       'n/prefer-global/process': 'off',
     },
+    ...pluginQuery.configs['flat/recommended'],
   },
   {
     plugins: {
