@@ -1,4 +1,5 @@
 import type { Viewport } from 'next'
+import { LoadingScript } from '@/components/common/loading'
 import { initDayjs } from '@/lib/date'
 import { routing } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
@@ -7,7 +8,6 @@ import { getMessages, setRequestLocale } from 'next-intl/server'
 // 导入字体文件
 import { Poppins } from 'next/font/google'
 import { notFound } from 'next/navigation'
-import Script from 'next/script'
 import ClientInitialization from './client-initialization'
 import Providers from './providers'
 // 导入全局css
@@ -62,13 +62,8 @@ export default async function LocaleLayout({
     <html
       lang={locale}
     >
-
       <body className={cn('dark', poppins.className)}>
-        <Script
-          type="module"
-          strategy="lazyOnload"
-          src="https://cdn.jsdelivr.net/npm/ldrs/dist/auto/spiral.js"
-        />
+        <LoadingScript />
         <NextIntlClientProvider messages={messages}>
           <Providers locale={locale}>
             <ClientInitialization locale={locale} />

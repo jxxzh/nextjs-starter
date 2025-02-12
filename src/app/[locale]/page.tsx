@@ -1,3 +1,4 @@
+import { CommonLoading } from '@/components/common/loading'
 import { LocaleSelect } from '@/components/common/local-select'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 
@@ -18,6 +19,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           {' '}
           {t('common.appName')}
         </h1>
+        <CommonLoading />
       </main>
     </>
   )
