@@ -4,20 +4,22 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* 
-设置根元素字体大小，以视口宽度375px--font-size:16px为基准
-当视口宽度小于375px时，根元素字体大小为 (16/375)*100vw
-当视口宽度大于375px时，根元素字体大小为16px 
-*/
-@media (max-width: 768px) {
+html {
+  /* 移动端 - 基准为 375px */
+  font-size: calc(100vw / 375 * 16);
+}
+
+@media screen and (min-width: 768px) {
   html {
-    font-size: calc((16 / 375) * 100vw); /* no */
+    /* 平板及以上 - 固定 16px */
+    font-size: 16px;
   }
 }
 
-@media (min-width: 768px) {
+@media screen and (max-width: 320px) {
   html {
-    font-size: 16px; /* no */
+    /* 小屏幕兜底 - 最小 320px */
+    font-size: calc(320px / 375 * 16);
   }
 }
 
