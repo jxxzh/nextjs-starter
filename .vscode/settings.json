@@ -47,8 +47,7 @@
     "postcss"
   ],
   "i18n-ally.localesPaths": [
-    "messages",
-    "src/lib/i18n"
+    "messages"
   ],
   "i18n-ally.keystyle": "nested"
 }
