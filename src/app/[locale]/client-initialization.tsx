@@ -1,9 +1,9 @@
 // In Next.js, this file would be called: app/providers.tsx
 'use client'
 
-import { createFirebaseApp, initClarify } from '@/lib/analytics'
 import { initDayjs } from '@/lib/date'
 import logger from '@/lib/logger'
+import { createFirebaseApp, initClarify } from '@/lib/report'
 import { useEffect } from 'react'
 
 // 通过一个单独的子组件来初始化客户端的配置，因为 useEffect 的执行顺序是子组件先于父组件

@@ -1,8 +1,8 @@
 'use client'
 
 import { SelectContent, SelectItem } from '@/components/ui/select'
-import { reportEvent } from '@/lib/analytics'
 import { localesConfig, usePathname, useRouter } from '@/lib/i18n'
+import { reportEvent } from '@/lib/report'
 import { cn } from '@/lib/utils'
 import * as SelectPrimitive from '@radix-ui/react-select'
 import { ChevronDown, Globe } from 'lucide-react'

@@ -10,7 +10,7 @@
   - 类似工具函数，高度可复用
   - 示例：`LocaleSelect`
 
-- **`/business`**: 业务组件
+- **`/features`**: 业务组件
   - 包含特定业务逻辑
   - 示例：`UserProfile`、`ProductCard`
 
