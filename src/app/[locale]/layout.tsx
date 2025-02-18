@@ -62,7 +62,7 @@ export default async function LocaleLayout({
     <html
       lang={locale}
     >
-      <body className={cn('dark', poppins.className)}>
+      <body className={cn(poppins.className)}>
         <LoadingScript />
         <NextIntlClientProvider messages={messages}>
           <Providers locale={locale}>
