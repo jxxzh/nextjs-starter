@@ -15,7 +15,7 @@ interface LdrsProps {
 
 export function LSpiral({
   size = 40,
-  color = 'white',
+  color = 'var(--primary)',
   speed = 0.9,
   stroke,
   strokeLength,

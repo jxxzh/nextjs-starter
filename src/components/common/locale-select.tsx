@@ -10,8 +10,8 @@ import { useLocale, useTranslations } from 'next-intl'
 import { useSearchParams } from 'next/navigation'
 
 export function LocaleSelect({
-  classname,
-}: { classname?: string }) {
+  className,
+}: { className?: string }) {
   const t = useTranslations()
   const currLocale = useLocale()
 
@@ -42,7 +42,7 @@ export function LocaleSelect({
         aria-label={t('common.switch', { name: t('dict.language') })}
         className={cn(
           'inline-flex items-center gap-2 text-sm md:text-base',
-          classname,
+          className,
         )}
       >
         <Globe size={24} />

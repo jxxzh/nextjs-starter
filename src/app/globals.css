@@ -4,20 +4,21 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* 响应式 */
 html {
   /* 移动端 - 基准为 375px */
   font-size: calc(100vw / 375 * 16);
-}
 
-@media screen and (min-width: 768px) {
-  html {
+  --header-height: 44px;
+
+  @media screen and (min-width: 768px) {
     /* 平板及以上 - 固定 16px */
     font-size: 16px;
-  }
-}
 
-@media screen and (max-width: 320px) {
-  html {
+    --header-height: 72px;
+  }
+
+  @media screen and (max-width: 320px) {
     /* 小屏幕兜底 - 最小 320px */
     font-size: calc(320px / 375 * 16);
   }
@@ -27,6 +28,7 @@ html {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
@@ -193,4 +195,51 @@ html {
   --radius-lg: var(--radius);
 
   --radius-xl: calc(var(--radius) + 4px);
+}
+
+/* 组件 */
+@layer components {
+  .responsive-container {
+    @apply w-full mx-auto max-w-[1440px] px-4 md:px-30;
+  }
+
+  .flex-center {
+    @apply flex items-center justify-center;
+  }
+
+  .flex-col-center {
+    @apply flex flex-col items-center justify-center;
+  }
+
+  .scrollbar-none {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+
+    /* Firefox */
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .absolute-center {
+    @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
+  }
+
+  .absolute-center-x {
+    @apply absolute left-1/2 -translate-x-1/2;
+  }
+
+  .absolute-center-y {
+    @apply absolute top-1/2 -translate-y-1/2;
+  }
+}
+
+/* 工具类 */
+@utility rounded-* {
+  border-radius: calc(var(--spacing) * --value(number));
+}
+
+@utility text-* {
+  font-size: calc(var(--spacing) * --value(number));
 }

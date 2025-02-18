@@ -1,5 +1,6 @@
 import type { Viewport } from 'next'
 import { LoadingScript } from '@/components/common/loading'
+import { Toaster } from '@/components/ui/sonner'
 import { initDayjs } from '@/lib/date'
 import { routing } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
@@ -61,6 +62,7 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale}
+      suppressHydrationWarning
     >
       <body className={cn(poppins.className)}>
         <LoadingScript />
@@ -68,6 +70,7 @@ export default async function LocaleLayout({
           <Providers locale={locale}>
             <ClientInitialization locale={locale} />
             {children}
+            <Toaster richColors />
           </Providers>
         </NextIntlClientProvider>
         <div className="body-bg-left-blur" />
