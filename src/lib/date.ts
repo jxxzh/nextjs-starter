@@ -7,11 +7,16 @@ import timezone from 'dayjs/plugin/timezone'
 import utc from 'dayjs/plugin/utc'
 // 导入本地化语言
 import 'dayjs/locale/en'
-import 'dayjs/locale/zh-tw'
-import 'dayjs/locale/fr'
+// import 'dayjs/locale/zh-tw'
+// import 'dayjs/locale/fr'
+
+const dayjsLocaleMap: Record<string, string> = {
+  'zh-Hant': 'zh-tw',
+  'zh-Hans': 'zh-cn',
+}
 
 export function initDayjs(locale: string) {
-  const dayjsLocale = locale === 'zh-Hant' ? 'zh-tw' : locale
+  const dayjsLocale = dayjsLocaleMap[locale] || locale
   dayjs.extend(utc)
   dayjs.extend(timezone)
   dayjs.extend(duration)

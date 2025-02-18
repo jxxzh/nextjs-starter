@@ -7,12 +7,9 @@ interface LocaleConfig {
 }
 
 export const localesConfig: LocaleConfig[] = [
-  // 英语
-  { code: 'en', desc: 'English' },
-  // 法语
-  { code: 'fr', desc: 'Français' },
-  // 繁体中文
-  { code: 'zh-Hant', desc: '繁體中文' },
+  { code: 'en', desc: 'English' }, // 英语
+  // { code: 'fr', desc: 'Français' }, // 法语
+  // { code: 'zh-Hant', desc: '繁體中文' }, // 繁体中文
 ]
 
 export const routing = defineRouting({
