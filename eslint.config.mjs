@@ -5,7 +5,7 @@ import pluginQuery from '@tanstack/eslint-plugin-query'
 export default antfu(
   {
     react: true,
-    ignores: ['/src/components/ui/**/*'], // shadcn/ui 组件不进行检查
+    ignores: ['src/components/ui/**/*'], // shadcn ui 组件不进行检查
     rules: {
       'unused-imports/no-unused-imports': 'warn',
       'n/prefer-global/process': 'off',
