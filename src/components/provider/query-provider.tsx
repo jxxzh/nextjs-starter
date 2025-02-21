@@ -6,7 +6,6 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
-import { ThemeProvider } from 'next-themes'
 
 function makeQueryClient() {
   return new QueryClient({
@@ -40,9 +39,9 @@ function getQueryClient() {
   }
 }
 
-export default function Providers({
+export function QueryProvider({
   children,
-}: { locale: string, children: React.ReactNode }) {
+}: { children: React.ReactNode }) {
   // NOTE: Avoid useState when initializing the query client if you don't
   //       have a suspense boundary between this and the code that may
   //       suspend because React will throw away the client on the initial
@@ -51,12 +50,7 @@ export default function Providers({
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider
-        attribute="class"
-        defaultTheme="light"
-      >
-        {children}
-      </ThemeProvider>
+      {children}
     </QueryClientProvider>
   )
 }

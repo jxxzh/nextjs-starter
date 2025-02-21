@@ -7,5 +7,11 @@ import Error from 'next/error'
 // therefore doesn't have a locale associated with it.
 
 export default function NotFound() {
-  return <Error statusCode={404} />
+  return (
+    <html>
+      <body>
+        <Error statusCode={404} />
+      </body>
+    </html>
+  )
 }
