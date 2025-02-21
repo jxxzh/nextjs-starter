@@ -195,6 +195,9 @@ html {
   --radius-lg: var(--radius);
 
   --radius-xl: calc(var(--radius) + 4px);
+
+  /* 自定义 */
+  --spacing-header: var(--header-height);
 }
 
 /* 组件 */
@@ -226,11 +229,11 @@ html {
     @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
   }
 
-  .absolute-center-x {
+  .absolute-x-center {
     @apply absolute left-1/2 -translate-x-1/2;
   }
 
-  .absolute-center-y {
+  .absolute-y-center {
     @apply absolute top-1/2 -translate-y-1/2;
   }
 }
