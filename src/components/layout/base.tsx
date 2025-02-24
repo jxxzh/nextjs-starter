@@ -5,6 +5,7 @@ import { NextIntlClientProvider } from 'next-intl'
 import { getMessages } from 'next-intl/server'
 // 导入字体文件
 import { Poppins } from 'next/font/google'
+import { Toaster } from 'sonner'
 import ClientInitialization from '../common/client-initialization'
 import { BaseProvider } from '../provider/base-provider'
 // 导入全局css
@@ -43,6 +44,7 @@ export async function BaseLayout({
           <BaseProvider>
             <ClientInitialization locale={locale} />
             {children}
+            <Toaster richColors />
           </BaseProvider>
         </NextIntlClientProvider>
       </body>
