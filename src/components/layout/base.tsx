@@ -1,7 +1,5 @@
-import type { Viewport } from 'next'
 import { LoadingScript } from '@/components/common/loading'
 import { initDayjs } from '@/lib/date'
-import { routing } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages } from 'next-intl/server'
@@ -17,20 +15,6 @@ const poppins = Poppins({
   weight: ['400', '500', '600', '700'], // 根据需要的字重选择
   display: 'swap',
 })
-
-// 全局 ISR 过期时间，可被特定页面设置覆盖
-export const revalidate = 3600 // 1小时
-
-export function generateStaticParams() {
-  return routing.locales.map(locale => ({ locale }))
-}
-
-export const viewport: Viewport = {
-  width: 'device-width',
-  initialScale: 1.0,
-  maximumScale: 1.0,
-  userScalable: false,
-}
 
 export async function BaseLayout({
   children,

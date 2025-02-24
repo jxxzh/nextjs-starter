@@ -4,6 +4,13 @@ import { routing } from '@/lib/i18n'
 import { setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 
+// 全局 ISR 过期时间，可被特定页面设置覆盖
+export const revalidate = 3600 // 1小时
+
+export function generateStaticParams() {
+  return routing.locales.map(locale => ({ locale }))
+}
+
 export default async function Layout({
   children,
   params,
