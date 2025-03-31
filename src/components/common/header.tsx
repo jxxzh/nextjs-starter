@@ -9,7 +9,7 @@ export function Header({
   className?: string
 }) {
   return (
-    <div>
+    <>
       <div className={cn('w-screen bg-secondary fixed top-0 left-0 right-0 z-50', className)}>
         <header className="responsive-container h-header flex items-center py-2">
           <Link href="/" className="flex-center">
@@ -20,8 +20,7 @@ export function Header({
           <LocaleSelect className="ml-4" />
         </header>
       </div>
-
-      <div className="h-header" />
-    </div>
+      <div className={cn('h-header', className)} />
+    </>
   )
 }
