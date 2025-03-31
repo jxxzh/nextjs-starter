@@ -27,4 +27,7 @@ export function initDayjs(locale: string) {
     const userTz = dayjs.tz.guess()
     dayjs.tz.setDefault(userTz)
   }
+  else {
+    dayjs.tz.setDefault('UTC')
+  }
 }
