@@ -5,15 +5,11 @@ import type { Analytics } from 'firebase/analytics'
 import { isDev } from '@/utils/env'
 import { getAnalytics, isSupported, logEvent } from 'firebase/analytics'
 import { getApps, initializeApp } from 'firebase/app'
-import { logger } from '../logger'
+import { createTagLogger } from '../logger'
 
 let analytics: Analytics | undefined
 
-const reportLogger = logger.create({
-  defaults: {
-    tag: 'analytics',
-  },
-})
+const reportLogger = createTagLogger('analytics')
 
 export async function createFirebaseApp() {
   // 开发环境不初始化
