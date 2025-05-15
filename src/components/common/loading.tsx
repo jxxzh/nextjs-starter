@@ -4,7 +4,7 @@ import type { ComponentProps, CSSProperties } from 'react'
 import { Ring } from 'ldrs/react'
 import 'ldrs/react/Ring.css'
 
-export default function CommonLoading({
+export function CommonLoading({
   size,
   ...props
 }: ComponentProps<typeof Ring> & {
