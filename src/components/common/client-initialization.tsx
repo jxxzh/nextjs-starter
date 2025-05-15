@@ -2,7 +2,7 @@
 'use client'
 
 import { setDayjsLocale } from '@/lib/dayjs'
-import logger from '@/lib/logger'
+import { logger } from '@/lib/logger'
 import { createFirebaseApp, initClarify } from '@/lib/report'
 import { useEffect } from 'react'
 

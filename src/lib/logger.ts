@@ -5,4 +5,4 @@ const logger = createConsola({
   level: isBrowser && isProd ? 0 : 5,
 })
 
-export default logger
+export { logger }
