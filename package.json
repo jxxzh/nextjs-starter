@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "lint:fix": "eslint --fix ."
+    "lint:fix": "eslint --fix .",
+    "load-env": "tsx scripts/load-env.ts"
   },
   "dependencies": {
     "@radix-ui/react-select": "^2.2.4",
@@ -45,6 +46,7 @@
     "postcss": "^8.5.3",
     "postcss-pxtorem": "^6.1.0",
     "tailwindcss": "^4.1.5",
+    "tsx": "^4.19.4",
     "typescript": "^5.8.3"
   }
 }
