@@ -1,7 +1,7 @@
 // In Next.js, this file would be called: app/providers.tsx
 'use client'
 
-import { initDayjs } from '@/lib/date'
+import { setDayjsLocale } from '@/lib/dayjs'
 import logger from '@/lib/logger'
 import { createFirebaseApp, initClarify } from '@/lib/report'
 import { useEffect } from 'react'
@@ -21,7 +21,7 @@ export default function ClientInitialization({ locale }: { locale: string }) {
 
   useEffect(() => {
     // 初始化dayjs
-    initDayjs(locale)
+    setDayjsLocale(locale)
   }, [locale])
   return null
 }

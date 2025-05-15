@@ -1,5 +1,4 @@
 import { LoadingScript } from '@/components/common/loading'
-import { initDayjs } from '@/lib/date'
 import { cn } from '@/lib/utils'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages } from 'next-intl/server'
@@ -24,9 +23,6 @@ export async function BaseLayout({
   children: React.ReactNode
   locale: string
 }) {
-  // 初始化dayjs
-  initDayjs(locale)
-
   // Providing all messages to the client
   // side is the easiest way to get started
   const messages = await getMessages()
