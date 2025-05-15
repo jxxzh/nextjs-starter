@@ -18,7 +18,11 @@ const defaultOptions = {
   },
 } satisfies CombinedRequestOptions
 
-const requestLogger = logger.child({ module: 'request' })
+const requestLogger = logger.create({
+  defaults: {
+    tag: 'request',
+  },
+})
 
 async function baseRequest<T>(
   path: string,

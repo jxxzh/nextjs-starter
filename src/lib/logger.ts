@@ -1,18 +1,8 @@
-import { isDevelopment, isProduction } from '@/utils/env'
-import pino from 'pino'
+import { isBrowser, isProd } from '@/utils/env'
+import { createConsola } from 'consola'
 
-const pinoConfig: pino.LoggerOptions = {
-  browser: {
-    disabled: isProduction(),
-  },
-}
-
-if (isDevelopment()) {
-  pinoConfig.transport = {
-    target: 'pino-pretty',
-  }
-}
-
-const logger = pino(pinoConfig)
+const logger = createConsola({
+  level: isBrowser && isProd ? 0 : 5,
+})
 
 export default logger

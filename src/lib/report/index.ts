@@ -2,20 +2,22 @@
 'use client'
 
 import type { Analytics } from 'firebase/analytics'
-import { isDevelopment } from '@/utils/env'
+import { isDev } from '@/utils/env'
 import { getAnalytics, isSupported, logEvent } from 'firebase/analytics'
 import { getApps, initializeApp } from 'firebase/app'
 import logger from '../logger'
 
 let analytics: Analytics | undefined
 
-const reportLogger = logger.child({
-  module: 'analytics',
+const reportLogger = logger.create({
+  defaults: {
+    tag: 'analytics',
+  },
 })
 
 export async function createFirebaseApp() {
   // 开发环境不初始化
-  if (isDevelopment())
+  if (isDev)
     return
   // 没有配置 firebase 的 api key 不初始化
   if (!process.env.NEXT_PUBLIC_FIREBASE_API_KEY)
@@ -42,7 +44,7 @@ export async function createFirebaseApp() {
 
 /* eslint-disable*/
 export function initClarify() {
-  if (isDevelopment()) {
+  if (isDev) {
     return
   }
   if (!process.env.NEXT_PUBLIC_CLARITY_KEY) {

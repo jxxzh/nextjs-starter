@@ -33,7 +33,7 @@ function getLocaleFromPathname(pathname: string): string {
  */
 export async function getLocaleFromCookie() {
   try {
-    if (isServer()) {
+    if (isServer) {
       return await getLocale()
     }
     return getLocaleFromPathname(window.location.pathname)
@@ -42,12 +42,4 @@ export async function getLocaleFromCookie() {
   catch (_) {
     return routing.defaultLocale
   }
-}
-
-export function transformFrontendLocaleToBackend(locale: string) {
-  return locale === 'zh-Hant' ? 'zh_tw' : locale
-}
-
-export function transformBackendLocaleToFrontend(locale: string) {
-  return locale === 'zh_tw' ? 'zh-Hant' : locale
 }

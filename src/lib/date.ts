@@ -23,7 +23,7 @@ export function initDayjs(locale: string) {
   dayjs.extend(advancedFormat)
   dayjs.extend(localizedFormat)
   dayjs.locale(dayjsLocale)
-  if (!isServer()) {
+  if (!isServer) {
     const userTz = dayjs.tz.guess()
     dayjs.tz.setDefault(userTz)
   }
