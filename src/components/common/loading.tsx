@@ -1,48 +1,21 @@
 'use client'
 
-import Script from 'next/script'
+import type { ComponentProps, CSSProperties } from 'react'
+import { Ring } from 'ldrs/react'
+import 'ldrs/react/Ring.css'
 
-/** https://github.com/GriffinJohnston/ldrs */
-
-interface LdrsProps {
-  size?: number | string
-  color?: string
-  speed?: number
-  stroke?: number
-  strokeLength?: number
-  bgOpacity?: number
-}
-
-export function LSpiral({
-  size = 40,
-  color = 'var(--primary)',
-  speed = 0.9,
-  stroke,
-  strokeLength,
-  bgOpacity,
-}: LdrsProps) {
+export default function CommonLoading({
+  size,
+  ...props
+}: ComponentProps<typeof Ring> & {
+  size: number
+}) {
   return (
-    // @ts-expect-error: Custom Web Component
-    <l-spiral
-      size={size}
-      color={color}
-      speed={speed}
-      stroke={stroke}
-      stroke-length={strokeLength}
-      bg-opacity={bgOpacity}
-    />
+    <span className="[&_svg]:size-[var(--size)]!" style={{ '--size': `${size / 16}rem` } as CSSProperties}>
+      <Ring
+        color="currentcolor"
+        {...props}
+      />
+    </span>
   )
 }
-
-export function LoadingScript() {
-  return (
-    <Script
-      type="module"
-      strategy="lazyOnload"
-      src="https://cdn.jsdelivr.net/npm/ldrs/dist/auto/spiral.js"
-    />
-  )
-}
-
-// 默认的加载动画
-export const CommonLoading = LSpiral

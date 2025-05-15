@@ -1,4 +1,3 @@
-import { LoadingScript } from '@/components/common/loading'
 import { cn } from '@/lib/utils'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages } from 'next-intl/server'
@@ -33,8 +32,6 @@ export async function BaseLayout({
       suppressHydrationWarning
     >
       <body className={cn(poppins.className)}>
-        {/* 加载动画 */}
-        <LoadingScript />
         {/* next-intl */}
         <NextIntlClientProvider messages={messages}>
           <BaseProvider>
