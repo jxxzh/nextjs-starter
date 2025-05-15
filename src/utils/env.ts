@@ -14,14 +14,9 @@ function isDevelopment() {
   return process.env.NEXT_PUBLIC_APP_ENV === 'development'
 }
 
-function isTest() {
-  return process.env.NEXT_PUBLIC_APP_ENV === 'test'
-}
-
 export {
   isBrowser,
   isDevelopment,
   isProduction,
   isServer,
-  isTest,
 }
