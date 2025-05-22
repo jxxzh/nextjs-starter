@@ -1,7 +1,7 @@
 'use client'
 
 import { Select, SelectContent, SelectItem } from '@/components/ui/select'
-import { localesConfig, useRouter } from '@/lib/i18n'
+import { localesConfig, usePathname, useRouter } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
 import * as SelectPrimitive from '@radix-ui/react-select'
 import { ChevronDown, Globe } from 'lucide-react'
@@ -13,6 +13,7 @@ export function LocaleSelect({
   const t = useTranslations()
   const router = useRouter()
   const locale = useLocale()
+  const pathname = usePathname()
 
   const items = localesConfig.map(item => (
     <SelectItem
@@ -24,7 +25,7 @@ export function LocaleSelect({
   ))
 
   const setLocale = (locale: string) => {
-    const path = `${location.pathname}${location.search}`
+    const path = `${pathname}${location.search}`
     router.replace(path, { locale })
   }
 
