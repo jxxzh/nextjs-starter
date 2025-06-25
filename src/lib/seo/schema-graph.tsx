@@ -1,4 +1,4 @@
-import { appConfig } from '@/constants/app-config'
+import { APP_CONFIG } from '@/constants/app-config'
 import { getLocaleUrl } from '@/utils/url'
 import { getTranslations } from 'next-intl/server'
 
@@ -153,7 +153,7 @@ async function ComplexSchema({
   const publisherSchema = {
     '@type': publisherType,
     '@id': getLocaleUrl(`/#${publisherType.toLowerCase()}`, locale),
-    'name': appConfig.name,
+    'name': APP_CONFIG.name,
     'url': getLocaleUrl('/', locale),
   }
   graph.push(publisherSchema)

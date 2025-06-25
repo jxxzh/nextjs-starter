@@ -1,37 +1,39 @@
-import { appConfig } from '@/constants/app-config'
-import { getLocalePathSegment } from '@/lib/i18n/routing'
-import { capitalize } from '@/utils/string'
+import { routing } from '@/lib/i18n'
 
-/**
- * 将相对路径转换为绝对 URL
- * @param path - 相对路径 (例如: '/blog')
- * @returns 完整的 URL (例如: 'https://example.com/blog')
- */
-export function getAbsoluteUrl(path: string) {
-  // 首先尝试使用环境变量中的 URL
-  const baseUrl = appConfig.siteUrl
-
-  // 确保 path 以 '/' 开头
-  const normalizedPath = path.startsWith('/') ? path : `/${path}`
-
-  // 移除 baseUrl 末尾的 '/'（如果存在）
-  const normalizedBaseUrl = baseUrl.endsWith('/')
-    ? baseUrl.slice(0, -1)
-    : baseUrl
-
-  return `${normalizedBaseUrl}${normalizedPath}`
+/** 格式化路径, 在开头添加'/'，并去掉末尾的'/' */
+export function formatPath(path: string): string {
+  if (!path.startsWith('/'))
+    path = `/${path}`
+  if (path.endsWith('/'))
+    path = path.slice(0, -1)
+  return path || '/'
 }
 
-export function getLocaleUrl(path: string, locale: string) {
-  const localePath = getLocalePathSegment(locale)
-  const normalizedPath = path.startsWith('/') ? path : `/${path}`
-  return getAbsoluteUrl(`${localePath}${normalizedPath}`)
+/** 格式化 URL, 去掉末尾的'/' */
+export function formatUrl(url: string): string {
+  if (url.endsWith('/'))
+    url = url.slice(0, -1)
+  return url
 }
 
-export function transformPokemonNameToRoute(name: string) {
-  return name.replace(/ /g, '-').toLowerCase()
+/** 将相对路径转换为绝对 URL */
+export function getAbsoluteUrl(path: string): string {
+  if (!process.env.NEXT_PUBLIC_SITE_URL)
+    throw new Error('NEXT_PUBLIC_SITE_URL is not set')
+  return formatUrl(`${process.env.NEXT_PUBLIC_SITE_URL}${formatPath(path)}`)
 }
 
-export function transformRouteToPokemonName(route: string) {
-  return capitalize(route.replace(/-/g, ' '))
+/** 获取国际化路由前缀 */
+export function getLocalePrefix(locale: string): string {
+  return locale === routing.defaultLocale ? '' : `/${locale}`
+}
+
+/** 获取带语言前缀的路径 */
+export function getLocalePath(path: string, locale: string): string {
+  return formatPath(`${getLocalePrefix(locale)}${path}`)
+}
+
+/** 获取带语言前缀的 URL */
+export function getLocaleUrl(path: string, locale: string): string {
+  return getAbsoluteUrl(getLocalePath(path, locale))
 }

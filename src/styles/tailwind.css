@@ -1,0 +1,17 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "./shadcn.css";
+
+@theme inline {
+  /* 自定义 */
+  --spacing-header: var(--header-height);
+}
+
+/* 工具类 */
+@utility rounded-* {
+  border-radius: calc(var(--spacing) * --value(number));
+}
+
+@utility text-* {
+  font-size: calc(var(--spacing) * --value(number));
+}

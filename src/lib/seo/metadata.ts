@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { appConfig } from '@/constants/app-config'
+import { APP_CONFIG } from '@/constants/app-config'
 import { getAbsoluteUrl, getLocaleUrl } from '@/utils/url'
 import { localesConfig } from '../i18n/routing'
 
@@ -47,7 +47,7 @@ function generateSEOMetadata({
       title,
       description,
       url: localeUrl,
-      siteName: appConfig.name,
+      siteName: APP_CONFIG.name,
       ...openGraph,
     },
     twitter: {

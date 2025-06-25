@@ -1,5 +1,4 @@
-@import "tailwindcss";
-
+@import "./tailwind.css";
 @import "./shadcn.css";
 
 /* 响应式 */
@@ -22,18 +21,9 @@ html {
   }
 }
 
-@theme inline {
-  /* 自定义 */
-  --spacing-header: var(--header-height);
-}
-
 @layer base {
   * {
     @apply border-border outline-ring/50;
-  }
-
-  body {
-    @apply bg-background text-foreground;
   }
 }
 
@@ -75,13 +65,4 @@ html {
   .absolute-y-center {
     @apply absolute top-1/2 -translate-y-1/2;
   }
-}
-
-/* 工具类 */
-@utility rounded-* {
-  border-radius: calc(var(--spacing) * --value(number));
-}
-
-@utility text-* {
-  font-size: calc(var(--spacing) * --value(number));
 }

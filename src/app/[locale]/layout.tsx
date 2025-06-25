@@ -1,11 +1,13 @@
-import { Header } from '@/components/common/header'
-import { BaseLayout } from '@/components/layout/base'
+import ClientInitialization from '@/components/common/client-initialization'
+import { BaseProvider } from '@/components/provider/base-provider'
+import { Toaster } from '@/components/ui/sonner'
 import { routing } from '@/lib/i18n'
-import { setRequestLocale } from 'next-intl/server'
+import { NextIntlClientProvider } from 'next-intl'
+import { getMessages, setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
-
-// 全局 ISR 过期时间，可被特定页面设置覆盖
-export const revalidate = 3600 // 1小时
+// 导入全局css
+import '@/styles/global.css'
+import '@/lib/dayjs'
 
 export function generateStaticParams() {
   return routing.locales.map(locale => ({ locale }))
@@ -30,10 +32,23 @@ export default async function Layout({
   // Enable static rendering
   setRequestLocale(locale)
 
+  const messages = await getMessages()
+
   return (
-    <BaseLayout locale={locale}>
-      <Header />
-      {children}
-    </BaseLayout>
+    <html
+      lang={locale}
+      suppressHydrationWarning
+    >
+      <body className="flex flex-col min-h-dvh bg-background text-foreground">
+        {/* next-intl */}
+        <NextIntlClientProvider messages={messages}>
+          <BaseProvider>
+            <ClientInitialization locale={locale} />
+            {children}
+            <Toaster richColors />
+          </BaseProvider>
+        </NextIntlClientProvider>
+      </body>
+    </html>
   )
 }

@@ -3,6 +3,9 @@
     "appName": "App",
     "switch": "Switch to {name}"
   },
+  "dict": {
+    "language": "Language"
+  },
   "page": {
     "home": {
       "seo": {
@@ -11,7 +14,13 @@
       }
     }
   },
-  "dict": {
-    "language": "Language"
+
+  "components": {
+    "header": {},
+    "footer": {
+      "termsOfService": "Terms of Service",
+      "privacyPolicy": "Privacy Policy",
+      "contactUs": "Contact Us"
+    }
   }
 }
