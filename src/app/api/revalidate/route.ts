@@ -1,7 +1,7 @@
 import type { NextRequest } from 'next/server'
 import { revalidatePath, revalidateTag } from 'next/cache'
 import { NextResponse } from 'next/server'
-import { z } from 'zod'
+import { z } from 'zod/v4'
 
 // 定义请求体的验证 schema
 const RevalidateSchema = z.object({
@@ -54,7 +54,7 @@ export async function POST(request: NextRequest) {
     // 处理验证错误
     if (error instanceof z.ZodError) {
       return NextResponse.json(
-        { message: '无效的请求格式', errors: error.errors },
+        { message: '无效的请求格式', error },
         { status: 400 },
       )
     }
