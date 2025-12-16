@@ -1,6 +1,10 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
-import './globals.css'
+import { Toaster } from '@/shared/components/ui/sonner'
+import '@/shared/styles/base.css'
+import { ThemeProvider as NextThemesProvider } from 'next-themes'
+import { StaticAlertDialog } from '@/shared/lib/alert-dialog-helper'
+import TanstackProvider from '@/shared/lib/tanstack-query/provider'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -23,11 +27,22 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <NextThemesProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          enableColorScheme
+        >
+          <TanstackProvider>
+            {children}
+            <Toaster />
+            <StaticAlertDialog />
+          </TanstackProvider>
+        </NextThemesProvider>
       </body>
     </html>
   )
