@@ -1,7 +1,7 @@
+import { ThemeToggle } from '@/shared/components/pattern/theme-toggle'
 import { AlertDialogQuickOpen } from './_components/alert-dialog-quick-open'
 import { Counter } from './_components/counter'
 import { AppleHelloEnglishEffect } from './_components/hello'
-import { ThemeToggle } from './_components/theme-toggle'
 
 export default function HomePage() {
   return (
