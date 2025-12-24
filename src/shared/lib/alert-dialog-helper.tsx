@@ -25,8 +25,8 @@ interface AlertDialogQuickOpenOptions {
   cancelText?: React.ReactNode
   confirmVariant?: ButtonVariant
   cancelVariant?: ButtonVariant
-  onConfirm?: () => void | Promise<void>
-  onCancel?: () => void | Promise<void>
+  onConfirm?: (close: () => void) => void | Promise<void>
+  onCancel?: (close: () => void) => void | Promise<void>
 }
 
 const store = createStore()
@@ -76,8 +76,7 @@ function StaticAlertDialog() {
     }
     setIsConfirmLoading(true)
     try {
-      await onConfirm()
-      close()
+      await onConfirm(close)
     } finally {
       setIsConfirmLoading(false)
     }
@@ -87,9 +86,8 @@ function StaticAlertDialog() {
     setIsCancelLoading(true)
     try {
       if (onCancel) {
-        await onCancel()
+        await onCancel(close)
       }
-      close()
     } finally {
       setIsCancelLoading(false)
     }

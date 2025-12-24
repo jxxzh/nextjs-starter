@@ -12,11 +12,12 @@ export function AlertDialogQuickOpen() {
       cancelText: '取消',
       confirmVariant: 'destructive',
       cancelVariant: 'outline',
-      onCancel: async () => {
+      onCancel: async (close) => {
         await new Promise((resolve) => setTimeout(resolve, 1200))
+        close()
       },
       onConfirm: async () => {
-        await new Promise((_, reject) => setTimeout(reject, 1200))
+        await new Promise((resolve) => setTimeout(resolve, 1200))
       },
     })
   }
